@@ -6,7 +6,7 @@ call print
 
 call print_n1
 
-move dx, 0x12fe
+mov dx, 0x12ef
 call print_hex
 
 ; can hang now

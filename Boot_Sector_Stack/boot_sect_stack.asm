@@ -29,7 +29,7 @@ pop bx
 mov al, bl
 int 0x10 ; prints A
 
-; data that has een popped from the stack is garbage now
+; data that has been popped from the stack is garbage now
 mov al, [0x8000]
 int 0x10
 
