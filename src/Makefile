@@ -2,10 +2,10 @@
 # $< = first dependency
 # $^ = all dependencies
 
-# First rule is the one executed when no parameters are given to the MakeFile
+# First rule is the one executed when no parameters are fed to the Makefile
 all: run
 
-# All dependencies are built as you need them
+# Dependencies are built as needed
 kernel.bin: kernel_entry.o kernel.o
 	i386-elf-ld -o $@ -Ttext 0x1000 $^ --oformat binary
 
@@ -13,20 +13,21 @@ kernel_entry.o: kernel_entry.asm
 	nasm $< -f elf -o $@
 
 kernel.o: kernel.c
+	# i386-elf-ld -o $@
 	i386-elf-gcc -ffreestanding -c $< -o $@
 
-# Rule to disasseble the kernel - may be useful for debugging
+# Rule to disassemble the kernel (useful for deugging)
 kernel.dis: kernel.bin
 	ndisasm -b 32 $< > $@
 
-bootsect.bin: bootsect.asm 
+bootsect.bin: bootsect.asm
 	nasm $< -f bin -o $@
 
-os-image-bin: bootsect.bin kernel.bin
+os-image.bin: bootsect.bin kernel.bin
 	cat $^ > $@
 
 run: os-image.bin
 	qemu-system-i386 -fda $<
 
-clean:
+clean: 
 	rm *.bin *.o *.dis
