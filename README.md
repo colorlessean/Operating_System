@@ -17,5 +17,5 @@ can be used as reference for others on how to build up a kernel of their own
 
 All of the projects are meant to be run in QEMU
 Each project should be compiled using the command style: nasm boot sect.asm -f bin -o boot sect.bin 
-Then run in QEMU by simply calling: qemu sect.bin
+Then run in QEMU by simply calling: qemu-system-x86_64 sect.bin
 
